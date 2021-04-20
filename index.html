@@ -52,7 +52,7 @@
 
         startScreen.addEventListener('click',start);
 
-        let player = {};
+        let player = {speed : 5};
 
         let keys = {ArrowUp : false, ArrowDown : false, ArrowLeft : false, ArrowRight : false}
 
@@ -63,14 +63,32 @@
             e.preventDefault();
             keys[e.key] = true;
            // console.log(e.key);
-            console.log(keys);
+           // console.log(keys);
         }
 
         function keyUp(e){
             e.preventDefault();
             keys[e.key] = false;
            // console.log(e.key);
-            console.log(keys);
+            //console.log(keys);
+        }
+         function isCollide(a,b){
+            aRect = a.getBoundingClientRect();
+            bRect = b.getBoundingClientRect();
+
+            return !((aRect.bottom < bRect.top) || (aRect.top > bRect.bottom) || (aRect.right < bRect.left) || (arect.left > bRect.right))
+        }
+        function moveLines(){
+            let lines = document.querySelectorAll('.lines');
+            
+            lines.forEach(function(item) {
+                if(item.y >= 700){
+                    item.y -= 750;
+                }
+
+                item.y +=player.speed;
+                item.style.top = item.y + "px"; 
+            })
         }
 
         function gamePlay(){
